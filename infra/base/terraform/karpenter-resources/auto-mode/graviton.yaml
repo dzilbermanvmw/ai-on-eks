@@ -67,13 +67,6 @@ spec:
     throughput: 256
   networkPolicy: DefaultAllow
   networkPolicyEventLogs: Disabled
-  #role: ${cluster_name}-eks-auto-20251209194501631700000003
-  #securityGroupSelectorTerms:
-  #- id: sg-0aa207610e365e734
-  #  - tags:
-        #Name: inference-cluster-am-node
-  #      Name: eks-cluster-sg-${cluster_name}-*
-  
   role: ${role}
   securityGroupSelectorTerms:
     - id: ${cluster_security_group_id}     
