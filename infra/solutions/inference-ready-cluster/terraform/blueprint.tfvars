@@ -1,4 +1,4 @@
-name                             = "inference-ready-cluster"
+name                             = "inference-cluster"
 enable_kuberay_operator          = true
 enable_ai_ml_observability_stack = true
 enable_aibrix_stack              = true
