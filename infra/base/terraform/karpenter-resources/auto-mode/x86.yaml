@@ -1,0 +1,92 @@
+---
+# x86 Node Pool for x86-based workloads
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: x86-general
+spec:
+  limits:
+    cpu: 512
+    memory: 4096Gi
+  disruption:
+    consolidationPolicy: WhenEmptyOrUnderutilized
+    consolidateAfter: 30s
+  template:
+    metadata:
+      labels:
+        model-inferencing: "x86-general"
+        ray-control-plane: "false"
+    spec:
+      nodeClassRef:
+        group: eks.amazonaws.com
+        kind: NodeClass
+        name: x86-general
+      expireAfter: 8h
+      taints:
+        - key: "model-inferencing"
+          value: "x86-general"
+          effect: NoSchedule
+      requirements:
+        - key: eks.amazonaws.com/instance-category
+          operator: In
+          values:
+            - c
+            - m
+            - r
+        - key: eks.amazonaws.com/instance-generation
+          operator: Gt
+          values: ["6"]
+        - key: kubernetes.io/arch
+          operator: In
+          values: ["amd64"]
+        - key: kubernetes.io/os
+          operator: In
+          values: ["linux"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["on-demand"]
+        - key: eks.amazonaws.com/instance-size
+          operator: In
+          values:
+            - 2xlarge
+            - 4xlarge
+            - 8xlarge
+            - 12xlarge
+            - 16xlarge
+      terminationGracePeriod: 24h0m0s
+
+---
+# X86 Node class
+apiVersion: eks.amazonaws.com/v1
+kind: NodeClass
+metadata:
+  name: x86-general
+spec:
+  #ephemeral storage spec below
+  ephemeralStorage:
+    iops: 16000
+    size: 100Gi
+    throughput: 512
+  networkPolicy: DefaultAllow
+  networkPolicyEventLogs: Disabled
+  #role: ${cluster_name}-eks-auto-20251209194501631700000003
+  #securityGroupSelectorTerms:
+  #- id: sg-0aa207610e365e734
+  #  - tags:
+  #      #Name: inference-cluster-am-node
+  #     Name: eks-cluster-sg-${cluster_name}-*
+  role: ${role}
+  securityGroupSelectorTerms:
+    - id: ${cluster_security_group_id}     
+  snatPolicy: Random
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "${cluster_name}"
+        Name: "${cluster_name}-private-secondary*" # Only secondary cidr subnets
+  tags:
+    Name: karpenter-x86-karpenter
+    Environment: dev
+    karpenter.sh/discovery: ${cluster_name}
+    model-inferencing: "x86-general"
+    ray-control-plane: "false"
+    Provisioned-By: awslabs/ai-on-eks/tree/main/infra/solutions/inference-ready-cluster
