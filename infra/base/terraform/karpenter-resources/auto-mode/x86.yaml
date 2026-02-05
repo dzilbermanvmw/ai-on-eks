@@ -77,10 +77,3 @@ spec:
     - tags:
         karpenter.sh/discovery: "${cluster_name}"
         Name: "${cluster_name}-private-secondary*" # Only secondary cidr subnets
-  tags:
-    Name: karpenter-x86-karpenter
-    Environment: dev
-    karpenter.sh/discovery: ${cluster_name}
-    model-inferencing: "x86-general"
-    ray-control-plane: "false"
-    Provisioned-By: awslabs/ai-on-eks/tree/main/infra/solutions/inference-ready-cluster
