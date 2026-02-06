@@ -73,5 +73,4 @@ spec:
   subnetSelectorTerms:
     - tags:
         karpenter.sh/discovery: "${cluster_name}"
-        Name: "${cluster_name}-private-secondary*" # Only secondary cidr subnets
-  
+        Name: "${cluster_name}-private-secondary*" # Only secondary cidr subnets  
