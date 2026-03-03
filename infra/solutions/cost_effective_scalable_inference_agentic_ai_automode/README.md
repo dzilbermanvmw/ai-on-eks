@@ -6,6 +6,7 @@
 - [Architecture](#architecture)
 - [Architecture Steps](#architecture-steps)
 - [Plan Your Deployment](#plan-your-deployment)
+  - [Services in this Guidance](#aws-services-in-this-guidance)
   - [Cost](#cost)
   - [Sample Cost Table](#sample-cost-table)
   - [Security](#security)
@@ -105,12 +106,12 @@ This architecture provides flexibility to choose between cost-optimized CPU infe
 | [Amazon CloudWatch](https://aws.amazon.com/cloudwatch/)| Monitoring service | Collects and tracks metrics, logs, and events from EKS and other AWS resources provisioned in the guidance |
 | [AWS Systems Manager](https://aws.amazon.com/systems-manager/)| Management service | Provides operational insights and takes action on AWS resources. |
 | [AWS Key Management Service (KMS)](https://aws.amazon.com/kms/)| Security service | Manages encryption keys for securing data in EKS and other AWS services. |
-| [Amazon Open Search](https://aws.amazon.com/opensearch-service/){:target="_blank"}| Supporting Service| Simplify AI-powered search, observability, and vector database operations with a secure, cost-effective managed service |
-| [Amazon Bedrock](https://aws.amazon.com/bedrock){:target="_blank"}| Supporting Service| Provides foundation models and agent capabilities for natural language processing and multi-agent orchestration.|
+| [Amazon Open Search](https://aws.amazon.com/opensearch-service/)| Supporting Service| Simplify AI-powered search, observability, and vector database operations with a secure, cost-effective managed service |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock)| Supporting Service| Provides foundation models and agent capabilities for natural language processing and multi-agent orchestration.|
 
 ### Cost
 
-You are responsible for the cost of the AWS services used while running this guidance. 
+You are responsible for the cost of the AWS services deployed with this guidance. 
 As of March 2026, the cost for running this guidance with the default settings in the `us-east-1` (N. Virginia) Region is approximately **$447.47/month**.
 
 We recommend creating a [budget](https://alpha-docs-aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-create.html) through [AWS Cost Explorer](http://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this guidance.
@@ -190,7 +191,7 @@ This follows the principle of least privilege, ensuring users and services have 
 
 ## Supported AWS Regions
 
-Guidance for Scalable Model Inference and Agentic AI  on Amazon EKS is supported in the following AWS Regions:
+Guidance for Scalable Model Inference and Agentic AI on Amazon EKS is supported in the following AWS Regions (as of March 2026):
 
 | Region Name | Region Code |
 |-------------|-------------|
